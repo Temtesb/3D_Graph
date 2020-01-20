@@ -1,4 +1,5 @@
-library(plot3D)
+pacman::p_load(plot3D,rayshader)
+
 
 group<-rep(1:10)
 dateStart<-as.Date("2016/10/01")
@@ -16,3 +17,12 @@ persp3D(z = simulatedData, zlim = c(minLimit, maxLimit), phi = 20,
         xlab="Date", ylab="Group", zlab="z-axix label")
 contour3D(z = -60+0.01, colvar = Vx/10, add = TRUE,
           col = "black", plot = TRUE)
+
+
+#--------------------------------------------------------------
+#now to 3D print the graph
+simulatedData %>%
+  sphere_shade() %>%
+  plot_3d(simulatedData,zscale=.1)
+save_3dprint("simulatedData_3d.stl", maxwidth = 4, unit = "in")
+
